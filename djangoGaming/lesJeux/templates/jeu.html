@@ -6,5 +6,8 @@
 <p>{{ jeu.date }}</p>
 <p>{{ jeu.studio }}</p>
 <p>{{ jeu.tags }}</p>
+<a href="{% url 'listejeux' %}">Retour à la liste des jeux</a>
+<a href="{% url 'modifierjeux' jeu.nom %}">Modifier le jeu</a>
+<a href="{% url 'supprimerjeux' jeu.nom %}">Supprimer le jeu</a>
 
 {% endblock %}
