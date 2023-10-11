@@ -1,62 +1,41 @@
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, redirect, render
+from lesJeux.models import Jeux
+from .forms import JeuForm
 
 def home(request):
   return render(request, template_name='base.html')
 
 def jeu(request, name):
-  jeu = {
-    'nom': name,
-    'description': 'Un jeu de combat',
-    'date': '2021-01-01',
-    'studio': 'Studio 1',
-    'tags': 'Combat, 2D, 3D',
-  }
+  jeu = Jeux.objects.get(nom=name)
   return render(request, template_name='jeu.html', context={'jeu': jeu})
 
 def listejeux(request):
-  jeux = [
-    {
-      'nom': 'Jeu 1',
-      'description': 'Un jeu de combat',
-      'date': '2021-01-01',
-      'studio': 'Studio 1',
-      'tags': 'Combat, 2D, 3D',
-    },
-    {
-      'nom': 'Jeu 2',
-      'description': 'Un jeu de combat',
-      'date': '2021-01-01',
-      'studio': 'Studio 1',
-      'tags': 'Combat, 2D, 3D',
-    },
-    {
-      'nom': 'Jeu 3',
-      'description': 'Un jeu de combat',
-      'date': '2021-01-01',
-      'studio': 'Studio 1',
-      'tags': 'Combat, 2D, 3D',
-    },
-    {
-      'nom': 'Jeu 4',
-      'description': 'Un jeu de combat',
-      'date': '2021-01-01',
-      'studio': 'Studio 1',
-      'tags': 'Combat, 2D, 3D',
-    },
-    {
-      'nom': 'Jeu 5',
-      'description': 'Un jeu de combat',
-      'date': '2021-01-01',
-      'studio': 'Studio 1',
-      'tags': 'Combat, 2D, 3D',
-    },
-    {
-      'nom': 'Jeu 6',
-      'description': 'Un jeu de combat',
-      'date': '2021-01-01',
-      'studio': 'Studio 1',
-      'tags': 'Combat, 2D, 3D',
-    },
-  ]
+  jeux = Jeux.objects.all()
   return render(request, template_name='listejeux.html', context={'jeux': jeux})
+
+def creer_jeu(request):
+    if request.method == 'POST':
+        form = JeuForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('listejeux')
+    else:
+        form = JeuForm()
+    return render(request, 'creerjeux.html', {'form': form})
+
+def modifier_jeu(request, nom):
+    jeu = get_object_or_404(Jeux, nom=nom)
+    if request.method == 'POST':
+        form = JeuForm(request.POST, instance=jeu)
+        if form.is_valid():
+            form.save()
+            return redirect('listejeux')
+    else:
+        form = JeuForm(instance=jeu)
+    return render(request, 'modifierjeux.html', {'form': form})
+
+def supprimer_jeu(request, nom):
+    jeu = get_object_or_404(Jeux, nom=nom)
+    jeu.delete()
+    return redirect('listejeux')
