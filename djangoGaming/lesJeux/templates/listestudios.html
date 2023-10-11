@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block title %}Les studios{% endblock %}
+{% block content %}
+<h1>Les studios</h1>
+<ul>
+    {% for studio in studios %}
+    <li>
+        <p>{{ studio.nom }}</p>
+        <a href="{% url 'studio' name=studio.nom %}">Voir le studio</a>        
+    </li>
+    {% endfor %}
+</ul>
+{% endblock %}
