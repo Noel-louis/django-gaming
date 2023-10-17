@@ -66,10 +66,10 @@ def modifier_studio(request, nom):
             form.save()
             return redirect('listestudios')
     else:
-        form = StudioForm(instance=jeu)
-    return render(request, 'modifierstudios.html', {'form': form})
+        form = StudioForm(instance=studio)
+    return render(request, 'modifierstudio.html', {'form': form})
 
 def supprimer_studio(request, nom):
     studio = get_object_or_404(Studio, nom=nom)
     studio.delete()
-    return redirect('listestuudios')
+    return redirect('listestudios')
