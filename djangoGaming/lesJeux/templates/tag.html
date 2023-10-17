@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block title %}{{ tag.nom }}{% endblock %}
+{% block content %}
+<h1>{{ tag.nom }}</h1>
+<p>{{ tag.description }}</p>
+<a href="{% url 'listetags' %}">Retour à la liste des tagx</a>
+<a href="{% url 'modifiertag' tag.nom %}">Modifier le tag</a>
+<a href="{% url 'supprimertag' tag.nom %}">Supprimer le tag</a>
+
+{% endblock %}
