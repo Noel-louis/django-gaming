@@ -1,7 +1,7 @@
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
-from lesJeux.models import Jeux
-from .forms import JeuForm
+from lesJeux.models import Jeux, Studio
+from .forms import JeuForm, StudioForm
 
 def home(request):
   return render(request, template_name='base.html')
@@ -69,7 +69,7 @@ def modifier_studio(request, nom):
         form = StudioForm(instance=jeu)
     return render(request, 'modifierstudios.html', {'form': form})
 
-def supprimer_jeu(request, nom):
+def supprimer_studio(request, nom):
     studio = get_object_or_404(Studio, nom=nom)
     studio.delete()
-    return redirect('listejeux')
+    return redirect('listestuudios')

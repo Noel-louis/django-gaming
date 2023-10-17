@@ -1,5 +1,5 @@
 from django import forms
-from .models import Jeux
+from .models import Jeux, Studio
 from django.forms import DateInput
 
 class JeuForm(forms.ModelForm):
@@ -10,3 +10,10 @@ class JeuForm(forms.ModelForm):
             'date': DateInput(attrs={'type': 'date'})
         }
 
+class StudioForm(forms.ModelForm):
+    class Meta:
+        model = Studio
+        fields = ['nom', 'description', 'date_creation']
+        widgets = {
+            'date_creation': DateInput(attrs={'type': 'date'})
+        }
