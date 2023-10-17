@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block title %}Création de studio{% endblock %}
+{% block content %}
+
+
+<h1>Créer un nouveau studio</h1>
+<form method="post">
+    {% csrf_token %}
+    
+    <div>
+        <label for="{{ form.nom.id_for_label }}">Nom :</label>
+        {{ form.nom }}
+    </div>
+    
+    <div>
+        <label for="{{ form.description.id_for_label }}">Description :</label>
+        {{ form.description }}
+    </div>
+    <div>
+        <label for="{{ form.date_creation.id_for_label }}">Date de creation :</label>
+        {{ form.date_creation }}
+    </div>
+    <button type="submit">Enregistrer</button>
+</form>
+{% endblock %}

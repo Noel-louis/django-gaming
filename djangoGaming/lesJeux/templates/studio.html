@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block title %}{{ studio.nom }}{% endblock %}
+{% block content %}
+<h1>{{ studio.nom }}</h1>
+<p>{{ studio.description }}</p>
+<p>{{ studio.date_creation }}</p>
+<a href="{% url 'listestudios' %}">Retour à la liste des studios</a>
+<a href="{% url 'modifierstudio' studio.nom %}">Modifier le studio</a>
+<a href="{% url 'supprimerstudio' studio.nom %}">Supprimer le studio</a>
+
+{% endblock %}
