@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block title %}Création du tag{% endblock %}
+{% block content %}
+
+
+<h1>Créer un nouveau tag</h1>
+<form method="post">
+    {% csrf_token %}
+    
+    <div>
+        <label for="{{ form.nom.id_for_label }}">Nom :</label>
+        {{ form.nom }}
+    </div>
+    
+    <div>
+        <label for="{{ form.description.id_for_label }}">Description :</label>
+        {{ form.description }}
+    </div>
+    <button type="submit">Enregistrer</button>
+</form>
+{% endblock %}
