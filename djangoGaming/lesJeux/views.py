@@ -1,4 +1,4 @@
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, redirect, render
 from lesJeux.models import Jeux, Studio, Tag
 from .forms import JeuForm, StudioForm, TagForm
@@ -83,12 +83,18 @@ def listetags(request):
   tags = Tag.objects.all()
   return render(request, template_name='listetags.html', context={'tags': tags})
 
+from django.shortcuts import redirect
+
 def creer_tag(request):
     if request.method == 'POST':
         form = TagForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('listetags')
+            next = request.POST.get('next', '/')
+            print(next)
+            return HttpResponseRedirect(next)
+
+
     else:
         form = TagForm()
     return render(request, 'creertag.html', {'form': form})
@@ -108,3 +114,25 @@ def supprimer_tag(request, nom):
     tag = get_object_or_404(Tag, nom=nom)
     tag.delete()
     return redirect('listetags')
+
+def search(request):
+    if request.method == 'GET':
+        query = request.GET.get('stringsearch')
+        print(request)
+        submitbutton = request.GET.get('submit')
+
+        if query is not None:
+            print("on cherche")
+            tags = Tag.objects.filter(nom=query)
+            jeux = Jeux.objects.filter(nom=query)
+            studios = Studio.objects.filter(nom=query)
+        else:
+            print("on cherche pas")
+            tags = Tag.objects.all()
+            jeux = Jeux.objects.all()
+            studios = Studio.objects.all()
+
+        return render(request, 'search.html',
+                            {'tags': tags,
+                             'jeux': jeux,
+                             'studios': studios})

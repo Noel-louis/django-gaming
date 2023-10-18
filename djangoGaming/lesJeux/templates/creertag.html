@@ -16,6 +16,7 @@
         <label for="{{ form.description.id_for_label }}">Description :</label>
         {{ form.description }}
     </div>
+    <input type="hidden" name="next" value="{{ request.path }}">
     <button type="submit">Enregistrer</button>
 </form>
 {% endblock %}

@@ -18,5 +18,5 @@ urlpatterns = [
     path('tag/creertag/', views.creer_tag, name='creertag'),
     path('tag/modifiertag/<str:nom>/', views.modifier_tag, name='modifiertag'),
     path('tag/supprimertag/<str:nom>/', views.supprimer_tag, name='supprimertag'),
-    
+    path('search/', views.search, name='search'),    
 ]
