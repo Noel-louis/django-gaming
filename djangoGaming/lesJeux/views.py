@@ -4,7 +4,7 @@ from lesJeux.models import Jeux, Studio, Tag
 from .forms import JeuForm, StudioForm, TagForm
 
 def home(request):
-  return render(request, template_name='base.html')
+  return render(request, template_name='index.html')
 
 def jeu(request, name):
   jeu = Jeux.objects.get(nom=name)
@@ -54,7 +54,8 @@ def creer_studio(request):
         form = StudioForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('listestudios')
+            next = request.POST.get('next', '/')
+            return HttpResponseRedirect(next)
     else:
         form = StudioForm()
     return render(request, 'creerstudio.html', {'form': form})
@@ -91,10 +92,7 @@ def creer_tag(request):
         if form.is_valid():
             form.save()
             next = request.POST.get('next', '/')
-            print(next)
             return HttpResponseRedirect(next)
-
-
     else:
         form = TagForm()
     return render(request, 'creertag.html', {'form': form})
@@ -118,16 +116,14 @@ def supprimer_tag(request, nom):
 def search(request):
     if request.method == 'GET':
         query = request.GET.get('stringsearch')
-        print(request)
         submitbutton = request.GET.get('submit')
 
         if query is not None:
-            print("on cherche")
-            tags = Tag.objects.filter(nom=query)
-            jeux = Jeux.objects.filter(nom=query)
-            studios = Studio.objects.filter(nom=query)
+            tags = Tag.objects.filter(nom__regex=r'{}'.format(query))
+            jeux = Jeux.objects.filter(nom__regex=r'{}'.format(query))
+            studios = Studio.objects.filter(nom__regex=r'{}'.format(query))
+
         else:
-            print("on cherche pas")
             tags = Tag.objects.all()
             jeux = Jeux.objects.all()
             studios = Studio.objects.all()

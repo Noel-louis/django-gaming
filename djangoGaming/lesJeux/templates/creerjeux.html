@@ -20,20 +20,25 @@
     <div>
         <label for="{{ form.studio.id_for_label }}">Studio :</label>
         {{ form.studio }} 
-        <a href="{% url 'creerstudio' %}">Créer Studio</a>
+        <form action="{% url 'creerstudio' %}">
+            <input type="submit" value="Créer Studio">
+            <input type="hidden" name="next" value="{{ request.path }}">
+        </form>
     </div>
     
     <div>
         <label for="{{ form.tags.id_for_label }}">Tags :</label>
         {{ form.tags }}
-        <a href="{% url 'creertag' %}">Créer Tag</a>
+        <form action="{% url 'creertag' %}">
+            <input type="submit" value="Créer tag">
+            <input type="hidden" name="next" value="{{ request.path }}">
+        </form>
     </div>
     
     <div>
         <label for="{{ form.date.id_for_label }}">Date de sortie :</label>
         {{ form.date }}
     </div>
-    <input type="hidden" name="next" value="{{ request.path }}">
     <button type="submit">Enregistrer</button>
 </form>
 {% endblock %}

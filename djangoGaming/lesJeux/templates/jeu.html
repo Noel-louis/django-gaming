@@ -2,9 +2,13 @@
 {% block title %}{{ jeu.nom }}{% endblock %}
 {% block content %}
 <h1>{{ jeu.nom }}</h1>
+<h4>Description</h4>
 <p>{{ jeu.description }}</p>
+<h4>Date de création</h4>
 <p>{{ jeu.date }}</p>
+<h4>Studio créateur</h4>
 <p>{{ jeu.studio }}</p>
+<h4>Liste des tags</h4>
 <p>{% for tag in tags%} {{tag.nom}} {% endfor %}</p>
 <a href="{% url 'listejeux' %}">Retour à la liste des jeux</a>
 <a href="{% url 'modifierjeux' jeu.nom %}">Modifier le jeu</a>
