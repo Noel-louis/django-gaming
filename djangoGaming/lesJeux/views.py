@@ -1,14 +1,15 @@
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, redirect, render
-from lesJeux.models import Jeux, Studio
-from .forms import JeuForm, StudioForm
+from lesJeux.models import Jeux, Studio, Tag
+from .forms import JeuForm, StudioForm, TagForm
 
 def home(request):
-  return render(request, template_name='base.html')
+  return render(request, template_name='index.html')
 
 def jeu(request, name):
   jeu = Jeux.objects.get(nom=name)
-  return render(request, template_name='jeu.html', context={'jeu': jeu})
+  tags = jeu.tags.all()
+  return render(request, template_name='jeu.html', context={'jeu': jeu,'tags':tags})
 
 def listejeux(request):
   jeux = Jeux.objects.all()
@@ -53,7 +54,8 @@ def creer_studio(request):
         form = StudioForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('listestudios')
+            next = request.POST.get('next', '/')
+            return HttpResponseRedirect(next)
     else:
         form = StudioForm()
     return render(request, 'creerstudio.html', {'form': form})
@@ -73,3 +75,60 @@ def supprimer_studio(request, nom):
     studio = get_object_or_404(Studio, nom=nom)
     studio.delete()
     return redirect('listestudios')
+
+def tag(request, name):
+  tag = Tag.objects.get(nom=name)
+  return render(request, template_name='tag.html', context={'tag': tag})
+
+def listetags(request):
+  tags = Tag.objects.all()
+  return render(request, template_name='listetags.html', context={'tags': tags})
+
+from django.shortcuts import redirect
+
+def creer_tag(request):
+    if request.method == 'POST':
+        form = TagForm(request.POST)
+        if form.is_valid():
+            form.save()
+            next = request.POST.get('next', '/')
+            return HttpResponseRedirect(next)
+    else:
+        form = TagForm()
+    return render(request, 'creertag.html', {'form': form})
+
+def modifier_tag(request, nom):
+    tag = get_object_or_404(Tag, nom=nom)
+    if request.method == 'POST':
+        form = TagForm(request.POST, instance=tag)
+        if form.is_valid():
+            form.save()
+            return redirect('listetags')
+    else:
+        form = TagForm(instance=tag)
+    return render(request, 'modifiertag.html', {'form': form})
+
+def supprimer_tag(request, nom):
+    tag = get_object_or_404(Tag, nom=nom)
+    tag.delete()
+    return redirect('listetags')
+
+def search(request):
+    if request.method == 'GET':
+        query = request.GET.get('stringsearch')
+        submitbutton = request.GET.get('submit')
+
+        if query is not None:
+            tags = Tag.objects.filter(nom__regex=r'{}'.format(query))
+            jeux = Jeux.objects.filter(nom__regex=r'{}'.format(query))
+            studios = Studio.objects.filter(nom__regex=r'{}'.format(query))
+
+        else:
+            tags = Tag.objects.all()
+            jeux = Jeux.objects.all()
+            studios = Studio.objects.all()
+
+        return render(request, 'search.html',
+                            {'tags': tags,
+                             'jeux': jeux,
+                             'studios': studios})

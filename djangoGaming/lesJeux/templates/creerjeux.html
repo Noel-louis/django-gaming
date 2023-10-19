@@ -6,7 +6,7 @@
 <h1>Créer un nouveau jeu</h1>
 <form method="post">
     {% csrf_token %}
-    
+    <input type="hidden" name="next" value="{{ request.path }}">
     <div>
         <label for="{{ form.nom.id_for_label }}">Nom :</label>
         {{ form.nom }}
@@ -19,12 +19,14 @@
     
     <div>
         <label for="{{ form.studio.id_for_label }}">Studio :</label>
-        {{ form.studio }}
+        {{ form.studio }} 
+        <a href="{% url 'creerstudio' %}?next={{ request.path }}">Créer Studio</a>
     </div>
     
     <div>
         <label for="{{ form.tags.id_for_label }}">Tags :</label>
         {{ form.tags }}
+        <a href="{% url 'creertag' %}">Créer Tag</a>
     </div>
     
     <div>
