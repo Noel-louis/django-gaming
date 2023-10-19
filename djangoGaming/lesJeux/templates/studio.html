@@ -6,8 +6,8 @@
 <p>{{ studio.description }}</p>
 <h4>date de création</h4>
 <p>{{ studio.date_creation }}</p>
-<a href="{% url 'listestudios' %}">Retour à la liste des studios</a>
-<a href="{% url 'modifierstudio' studio.nom %}">Modifier le studio</a>
-<a href="{% url 'supprimerstudio' studio.nom %}">Supprimer le studio</a>
+<a href="{% url 'listestudios' %}" class="btn btn-secondary">Retour à la liste des studios</a>
+<a href="{% url 'modifierstudio' studio.nom %}" class="btn btn-secondary">Modifier le studio</a>
+<a href="{% url 'supprimerstudio' studio.nom %}" class="btn btn-secondary">Supprimer le studio</a>
 
 {% endblock %}

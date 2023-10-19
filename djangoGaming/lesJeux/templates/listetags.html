@@ -2,12 +2,12 @@
 {% block title %}Les tags{% endblock %}
 {% block content %}
 <h1>Les tags</h1>
-<ul>
+<div class="list-group">
     {% for tag in tags %}
-    <li>
-        <p>{{ tag.nom }}</p>
-        <a href="{% url 'tag' name=tag.nom %}">Voir le tag</a>        
-    </li>
+    <div class="list-group-item d-flex justify-content-between">
+        <p class="d-inline">{{ tag.nom }}</p>
+        <a class="btn btn-primary d-inline" href="{% url 'tag' name=tag.nom %}">Voir le tag</a>        
+    </div>
     {% endfor %}
-</ul>
+</div>
 {% endblock %}

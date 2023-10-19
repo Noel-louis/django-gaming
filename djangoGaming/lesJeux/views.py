@@ -84,8 +84,6 @@ def listetags(request):
   tags = Tag.objects.all()
   return render(request, template_name='listetags.html', context={'tags': tags})
 
-from django.shortcuts import redirect
-
 def creer_tag(request):
     if request.method == 'POST':
         form = TagForm(request.POST)
