@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block title %}Les jeux{% endblock %}
+{% block content %}
+<h1>Les jeux</h1>
+<ul class="list-group list-group-flush">
+    {% for jeu in jeux %}
+    <li class="list-group-item">
+        <a href="{% url 'jeu' name=jeu.nom %}">{{ jeu.nom }}</a>        
+    </li>
+    {% endfor %}
+</ul>
+<h1>Les studios</h1>
+<ul class="list-group list-group-flush">
+    {% for studio in studios %}
+    <li class="list-group-item">
+        <a href="{% url 'studio' name=studio.nom %}">{{ studio.nom }}</a>        
+    </li>
+    {% endfor %}
+</ul>
+<h1>Les tags</h1>
+<ul class="list-group list-group-flush">
+    {% for tag in tags %}
+    <li class="list-group-item">
+        <a href="{% url 'tag' name=tag.nom %}">{{ tag.nom }}</a>        
+    </li>
+    {% endfor %}
+</ul>
+{% endblock %}

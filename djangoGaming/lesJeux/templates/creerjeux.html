@@ -4,33 +4,37 @@
 
 
 <h1>Créer un nouveau jeu</h1>
-<form method="post">
+<form method="post" class="m-5 border">
     {% csrf_token %}
-    
-    <div>
+    <input type="hidden" name="next" value="{{ request.path }}">
+    <div class="form-group m-3">
         <label for="{{ form.nom.id_for_label }}">Nom :</label>
         {{ form.nom }}
     </div>
     
-    <div>
+    <div class="form-group m-3">
         <label for="{{ form.description.id_for_label }}">Description :</label>
         {{ form.description }}
     </div>
     
-    <div>
+    <div class="form-group m-3">
         <label for="{{ form.studio.id_for_label }}">Studio :</label>
-        {{ form.studio }}
+        {{ form.studio }} 
+        <a href="{% url 'creerstudio' %}?next={{ request.path }}" class="btn btn-secondary">Créer Studio</a>
     </div>
     
-    <div>
+    <div class="form-group m-3">
         <label for="{{ form.tags.id_for_label }}">Tags :</label>
         {{ form.tags }}
+        <a href="{% url 'creertag' %}" class="btn btn-secondary">Créer Tag</a>
     </div>
     
-    <div>
+    <div class="form-group m-3">
         <label for="{{ form.date.id_for_label }}">Date de sortie :</label>
         {{ form.date }}
     </div>
-    <button type="submit">Enregistrer</button>
+    <div class="m-3 text-center">
+        <button type="submit" class="btn btn-primary">Enregistrer</button>
+    </div>
 </form>
 {% endblock %}

@@ -2,12 +2,12 @@
 {% block title %}Les studios{% endblock %}
 {% block content %}
 <h1>Les studios</h1>
-<ul>
+<div class="list-group">
     {% for studio in studios %}
-    <li>
-        <p>{{ studio.nom }}</p>
-        <a href="{% url 'studio' name=studio.nom %}">Voir le studio</a>        
-    </li>
+    <div class="list-group-item d-flex justify-content-between">
+        <p class="d-inline">{{ studio.nom }}</p>
+        <a class="btn btn-primary d-inline" href="{% url 'studio' name=studio.nom %}">Voir le studio</a>        
+    </div>
     {% endfor %}
-</ul>
+</div>
 {% endblock %}

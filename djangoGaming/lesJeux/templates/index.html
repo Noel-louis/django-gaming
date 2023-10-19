@@ -1,13 +1,16 @@
-{% 'extends base.html' %}
+{% extends 'base.html' %}
 
 {% block title %}Les jeux{% endblock %}
 
 {% block content %}
-<p>bienvenue sur notre site de référencement de jeux vidéos</p>
-<p></p>lien vers liste des jeux</p>
-<a href="{% url 'listejeux' %}">liste des jeux</a>
-<p>lien vers liste des studios</p>
-<a href="{% url 'listestudios' %}">liste des studios</a>
+<h1 class="mb-5 mt-3">bienvenue sur notre site de référencement de jeux vidéos</h1>
+<h2>lien vers liste des jeux</h2>
+<a href="{% url 'listejeux' %}" class="btn btn-primary ms-4 w-25">liste des jeux</a>
+<h2>lien vers liste des studios</h2>
+<a href="{% url 'listestudios' %}" class="btn btn-primary ms-4 w-25">liste des studios</a>
+<h2>lien vers liste des tags</h2>
+<a href="{% url 'listetags' %}" class="btn btn-primary ms-4 w-25">liste des tags</a>
+
 
 {% endblock %}
 

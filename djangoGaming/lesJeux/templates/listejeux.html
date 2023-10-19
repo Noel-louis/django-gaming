@@ -2,12 +2,12 @@
 {% block title %}Les jeux{% endblock %}
 {% block content %}
 <h1>Les jeux</h1>
-<ul>
+<div class="list-group">
     {% for jeu in jeux %}
-    <li>
-        <p>{{ jeu.nom }}</p>
-        <a href="{% url 'jeu' name=jeu.nom %}">Voir le jeu</a>        
-    </li>
+    <div class="list-group-item d-flex justify-content-between">
+        <p class="d-inline">{{ jeu.nom }}</p>
+        <a class="btn btn-primary d-inline" href="{% url 'jeu' name=jeu.nom %}">Voir le jeu</a>        
+    </div>
     {% endfor %}
-</ul>
+</div>
 {% endblock %}
