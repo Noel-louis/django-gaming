@@ -3,13 +3,13 @@
 {% block title %}Les jeux{% endblock %}
 
 {% block content %}
-<h1>bienvenue sur notre site de référencement de jeux vidéos</h1>
+<h1 class="mb-5 mt-3">bienvenue sur notre site de référencement de jeux vidéos</h1>
 <h2>lien vers liste des jeux</h2>
-<a href="{% url 'listejeux' %}">liste des jeux</a>
+<a href="{% url 'listejeux' %}" class="btn btn-primary ms-4 w-25">liste des jeux</a>
 <h2>lien vers liste des studios</h2>
-<a href="{% url 'listestudios' %}">liste des studios</a>
+<a href="{% url 'listestudios' %}" class="btn btn-primary ms-4 w-25">liste des studios</a>
 <h2>lien vers liste des tags</h2>
-<a href="{% url 'listetags' %}">liste des tags</a>
+<a href="{% url 'listetags' %}" class="btn btn-primary ms-4 w-25">liste des tags</a>
 
 
 {% endblock %}

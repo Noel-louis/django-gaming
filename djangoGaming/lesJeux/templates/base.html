@@ -17,8 +17,8 @@
 
 <body>
     {% block nav %}
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#">Django Gaming</a>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand ms-3" href="#">Django Gaming</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -52,10 +52,10 @@
             </ul>
             
         </div>
-        <form class="d-flex" role="search" action="{% url 'search' %}">
-            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" id="stringsearch" name="stringsearch">
+        <form class="d-flex me-4 " role="search" action="{% url 'search' %}">
+            <input class="form-control me-3" type="search" placeholder="Search" aria-label="Search" id="stringsearch" name="stringsearch">
             <button class="btn btn-outline-success" type="submit">Search</button>
-          </form>
+        </form>
     
     </nav>
     {% endblock %}

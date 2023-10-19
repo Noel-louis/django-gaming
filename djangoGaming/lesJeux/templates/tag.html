@@ -4,8 +4,8 @@
 <h1>{{ tag.nom }}</h1>
 <h4>Description</h4>
 <p>{{ tag.description }}</p>
-<a href="{% url 'listetags' %}">Retour à la liste des tagx</a>
-<a href="{% url 'modifiertag' tag.nom %}">Modifier le tag</a>
-<a href="{% url 'supprimertag' tag.nom %}">Supprimer le tag</a>
+<a href="{% url 'listetags' %}" class="btn btn-secondary">Retour à la liste des tagx</a>
+<a href="{% url 'modifiertag' tag.nom %}" class="btn btn-secondary">Modifier le tag</a>
+<a href="{% url 'supprimertag' tag.nom %}" class="btn btn-secondary">Supprimer le tag</a>
 
 {% endblock %}
