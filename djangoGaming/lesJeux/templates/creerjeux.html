@@ -20,13 +20,13 @@
     <div class="form-group m-3">
         <label for="{{ form.studio.id_for_label }}">Studio :</label>
         {{ form.studio }} 
-        <a href="{% url 'creerstudio' %}?next={{ request.path }}" class="btn btn-secondary">Créer Studio</a>
+        <a href="{% url 'creerstudio' %}?next={{ request.path }}" class="btn btn-secondary" id="studioBtn">Créer Studio</a>
     </div>
     
     <div class="form-group m-3">
         <label for="{{ form.tags.id_for_label }}">Tags :</label>
         {{ form.tags }}
-        <a href="{% url 'creertag' %}" class="btn btn-secondary">Créer Tag</a>
+        <a href="{% url 'creertag' %}?next={{ request.path }}" class="btn btn-secondary" id="tagBtn">Créer Tag</a>
     </div>
     
     <div class="form-group m-3">
@@ -34,7 +34,81 @@
         {{ form.date }}
     </div>
     <div class="m-3 text-center">
-        <button type="submit" class="btn btn-primary">Enregistrer</button>
+        <button type="submit" class="btn btn-primary" id="submitBtn">Enregistrer</button>
     </div>
 </form>
+
+{% endblock %}
+
+{% block scripts %}
+{{ block.super }}
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // Récupérer les valeurs des cookies
+        var nomFromCookie = getCookie("nom");
+        var descriptionFromCookie = getCookie("description");
+        var studioFromCookie = getCookie("studio");
+        var tagsFromCookie = getCookie("tags");
+        var dateFromCookie = getCookie("date");
+
+        // Remplir les champs du formulaire avec les valeurs par défaut
+        document.getElementById('id_nom').value = nomFromCookie || '';
+        document.getElementById('id_description').value = descriptionFromCookie || '';
+        document.getElementById('id_studio').value = studioFromCookie || '';
+        document.getElementById('id_tags').value = tagsFromCookie || '';
+        document.getElementById('id_date').value = dateFromCookie || '';
+
+        function getCookie(name) {
+            var cookieArr = document.cookie.split("; ");
+            for (var i = 0; i < cookieArr.length; i++) {
+                var cookiePair = cookieArr[i].split("=");
+                if (name === cookiePair[0]) {
+                    return decodeURIComponent(cookiePair[1]);
+                }
+            }
+            return null;
+        }
+        // Supprimer les cookies
+        document.getElementById('deleteCookiesBtn').addEventListener('click', function() {
+            deleteCookie("nom");
+            deleteCookie("description");
+            deleteCookie("studio");
+            deleteCookie("tags");
+            deleteCookie("date");
+            // Rafraîchir la page pour voir les modifications
+            location.reload();
+        });
+        function deleteCookie(name) {
+            document.cookie = name + '=; Max-Age=-99999999;';
+        };
+
+    });
+</script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        document.getElementById('studioBtn').addEventListener('click', function() {
+            setCookie('studio', document.getElementById('id_studio').value, 30); // 30 jours d'expiration
+        });
+
+        document.getElementById('tagBtn').addEventListener('click', function() {
+            setCookie('tags', document.getElementById('id_tags').value, 30); // 30 jours d'expiration
+        });
+
+        document.getElementById('submitBtn').addEventListener('click', function() {
+            setCookie('nom', document.getElementById('id_nom').value, 30); // 30 jours d'expiration
+            setCookie('description', document.getElementById('id_description').value, 30); // 30 jours d'expiration
+            setCookie('date', document.getElementById('id_date').value, 30); // 30 jours d'expiration
+        });
+
+        function setCookie(name, value, days) {
+            var expires = "";
+            if (days) {
+                var date = new Date();
+                date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+                expires = "; expires=" + date.toUTCString();
+            }
+            document.cookie = name + "=" + (value || "") + expires + "; path="+request.path;
+        }
+    });
+</script>
 {% endblock %}

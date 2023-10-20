@@ -54,7 +54,7 @@ def creer_studio(request):
         form = StudioForm(request.POST)
         if form.is_valid():
             form.save()
-            next = request.POST.get('next', '/')
+            next = request.POST.get('next', '/lesJeux/listestudios/')
             return HttpResponseRedirect(next)
     else:
         form = StudioForm()
@@ -89,9 +89,10 @@ def creer_tag(request):
         form = TagForm(request.POST)
         if form.is_valid():
             form.save()
-            next = request.POST.get('next', '/')
-            return HttpResponseRedirect(next)
+            next = request.POST.get('next', '/lesJeux/listetags/')
+            return redirect(next)
     else:
+        print("on est dans le else")
         form = TagForm()
     return render(request, 'creertag.html', {'form': form})
 
